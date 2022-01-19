@@ -1,3 +1,4 @@
+/* general stuff */
 body {
   background-color: darkblue;
 }
@@ -10,6 +11,7 @@ body {
   background-color: azure;
 }
 
+/* files list */
 .file-item {
   list-style: none;
   border: 1px solid black;
@@ -30,6 +32,7 @@ body {
   text-decoration: line-through;
 }
 
+/* upload form */
 .upload-box {
   border: 1px solid black;
   border-radius: 5px;

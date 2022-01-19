@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename
 import argparse
 
 PORT = 8899
-DELETE_AFTER = 60 * 5
 
 app = Flask(__name__)
 
@@ -16,16 +15,21 @@ def index():
     files = []
     for f in os.listdir(app.config["SHARE_DIR"]):
         path = os.path.join(app.config["SHARE_DIR"], f)
+        delete_after = app.config["KEEP"]
         if not os.path.isfile(path):
             continue
-        if os.path.getmtime(path) + DELETE_AFTER < time.time():
+        if os.path.getmtime(path) + delete_after < time.time():
             os.remove(path)
             files.append({
-                "name": f, "expires": 0, "deleted": True
+                "name": f,
+                "expires": 0,
+                "deleted": True
                 })
             continue
         files.append({
-            "name": f, "expires": int(os.path.getmtime(path) + DELETE_AFTER - time.time()), "deleted": False
+            "name": f,
+            "expires": int(os.path.getmtime(path) + delete_after - time.time()),
+            "deleted": False
             })
     return render_template("index.html", files=files)
 
@@ -57,10 +61,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--debug", action="store_true", help="run flask in debug mode")
     parser.add_argument("--share-dir", default="/media/share", type=str, help="folder to share")
+    parser.add_argument("--keep", default=(60*5), type=int, help="deleted files after so many seconds")
 
     args = parser.parse_args()
 
     app.config["SHARE_DIR"] = args.share_dir
+    app.config["KEEP"] = args.keep
 
     app.run(port=PORT, debug=args.debug, host="0.0.0.0")
 

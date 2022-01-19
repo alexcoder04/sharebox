@@ -1,0 +1,49 @@
+body {
+  background-color: darkblue;
+}
+
+.main-container {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5vw;
+  padding: 5vw;
+  background-color: azure;
+}
+
+.file-item {
+  list-style: none;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  background-color: darkgreen;
+  color: white;
+}
+
+.file-item > a {
+  text-decoration: none;
+  color: white;
+}
+
+.file-deleted {
+  color: orange;
+  text-decoration: line-through;
+}
+
+.upload-box {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  background-color: skyblue;
+}
+
+.btn {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: lime;
+  font-size: 20px;
+}

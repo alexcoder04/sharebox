@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <script src="/static/countdown.js" defer></script>
+    <link rel="stylesheet" href="/static/main.css" />
   </head>
   <body>
-      <h1><a href="/">ShareBox</a></h1>
+      <div class="main-container">
+      <h1><a href="/">ShareBox - dirty file sharing</a></h1>
       <div>
         <h2>Upload file</h2>
         <form
@@ -13,10 +15,10 @@
           method="post"
           enctype="multipart/form-data"
         >
-          <label for="upload">
+          <label for="upload" class="upload-box">
             <input type="file" multiple id="upload" name="upload">
           </label>
-          <button type="submit">Upload</button>
+          <button type="submit" class="btn">Upload</button>
         </form>
       </div>
       <div>
@@ -24,18 +26,22 @@
           {% if files.__len__() < 1 %}
             <p>No files</p>
           {% endif %}
-          <ul>
+          <ul class="files-list">
             {% for file in files %}
-            <li>
+            <li class="file-item">
+                {% if file["deleted"] %}
+                <span class="file-deleted">{{ file["name"] }} (deleted)</span>
+                {% else %}
                 <a
-                    href="/dl/{{ file }}"
-                    {% if file["deleted"] %}
-                    style="text-decoration: line-through; color: red;"
-                    {% endif %}
-                    >{{ file["name"] }} (expires in <span class="expires-number">{{ file["expires"] }}</span> seconds)</a>
+                    href="/dl/{{ file["name"] }}"
+                    >{{ file["name"] }}
+                    (expires in <span class="expires-number">{{ file["expires"] }}</span> seconds)
+                </a>
+                {% endif %}
             </li>
             {% endfor %}
           </ul>
+      </div>
       </div>
   </body>
 </html>

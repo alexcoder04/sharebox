@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <script src="/static/countdown.js" defer></script>
+    <script src="/static/confirm.js" defer></script>
     <link rel="stylesheet" href="/static/main.css" />
   </head>
   <body>
@@ -14,6 +15,7 @@
           action="/upload"
           method="post"
           enctype="multipart/form-data"
+          onsubmit="return confirmForm()"
         >
           <label for="upload" class="upload-box">
             <input type="file" multiple id="upload" name="upload">
